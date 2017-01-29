@@ -13,8 +13,14 @@ Development Setup:
 3) python run.py
 4) tests found in [tests](tests)
 
+Private message commands:
+[![Preview](preview.png)]
+1) hi!
+2) weather ${city}
+
 
 
 Credits:
 - https://github.com/lins05/slackbot
 - https://github.com/gpailler/AtlassianBot
+- https://github.com/igable/data-gc-ca-api
