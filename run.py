@@ -37,16 +37,19 @@ def hi(message):
 @respond_to(WEATHER, re.IGNORECASE)
 def weather(message):
     # remove 'weather ' from message
-    cityStr = message.body['text'].replace(WEATHER, '').strip()
+    cityStr = message.body['text'][len(WEATHER):].strip()
 
     if not CITYINDEX.is_city(cityStr):
         message.reply("Couldn't find your city: " + cityStr)
         return
 
     city = City(CITYINDEX.data_url(cityStr))
-    temperature = city.get_quantity('currentConditions/temperature')
-    message.reply('Weather in %s, %s: %s °C' % (cityStr, CITYINDEX.province(cityStr), temperature))
+    message.reply('Weather in %s, %s\nCurrent: %s °C\nForecast: %s' % (cityStr,
+                                                                   CITYINDEX.province(cityStr),
+                                                                   city.get_quantity('currentConditions/temperature'),
+                                                                   city.get_quantity('forecastGroup/forecast/textSummary')))
 
+    #TODO: convert keywords of forecastGroup/forecast/textSummary into appropriate emoji?
 
 # broadcast online status to general channel
 def greetGeneralChannel():

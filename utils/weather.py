@@ -135,7 +135,7 @@ class City():
 
     def _make_attribute_list(self, attrib):
         xpathattrib = ""
-        for attribute, value in attrib.iteritems():
+        for attribute, value in attrib.items():
             xpathattrib = xpathattrib + "[@" + attribute + "='" + value + "']"
         return xpathattrib
 
