@@ -1,5 +1,5 @@
 import unittest
-from slackbot.dispatcher import Message
+from main.dispatcher import Message
 
 
 class MyTestCase(unittest.TestCase):

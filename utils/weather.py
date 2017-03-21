@@ -9,7 +9,6 @@
 ## Modified by Amir Toole to be compatible with Python 3 and to update government of Canada endpoints
 
 from urllib.request import urlopen
-import sys
 
 from xml.etree.ElementTree import ElementTree
 

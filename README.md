@@ -12,7 +12,7 @@ Development Setup:
 
 1. Python 3.6.0
 2. pip install -r requirements.txt
-3. python run.py
+3. python main.py
 4. tests found in [tests](tests)
 
 Private message commands:

@@ -12,7 +12,6 @@
 
 ## Modified by Amir Toole for Python 3 compatiblity
 
-import sys
 import unittest
 from optparse import OptionParser
 

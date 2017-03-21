@@ -2,12 +2,11 @@ import logging
 import re
 import sys
 
-from slackbot import settings
 from slackbot.bot import Bot, respond_to
 from slackbot.slackclient import SlackClient
 
-from slackbot_settings import API_TOKEN
-from utils.weather import City, CityIndex
+from slackbot_settings import API_TOKEN, DEBUG
+from utils.weather import CityIndex, City
 
 WEATHER = 'weather'
 CITYINDEX = CityIndex()
@@ -17,7 +16,7 @@ def main():
     kw = {
         'format': '[%(asctime)s] | %(name)s | %(levelname)s | %(message)s',
         'datefmt': '%m/%d/%Y %H:%M:%S',
-        'level': logging.DEBUG if settings.DEBUG else logging.INFO,
+        'level': logging.DEBUG if DEBUG else logging.INFO,
         'stream': sys.stdout,
     }
     logging.basicConfig(**kw)
@@ -45,11 +44,12 @@ def weather(message):
 
     city = City(CITYINDEX.data_url(cityStr))
     message.reply('Weather in %s, %s\nCurrent: %s °C\nForecast: %s' % (cityStr,
-                                                                   CITYINDEX.province(cityStr),
-                                                                   city.get_quantity('currentConditions/temperature'),
-                                                                   city.get_quantity('forecastGroup/forecast/textSummary')))
+                                                                       CITYINDEX.province(cityStr),
+                                                                       city.get_quantity('currentConditions/temperature'),
+                                                                       city.get_quantity('forecastGroup/forecast/textSummary')))
 
-    #TODO: convert keywords of forecastGroup/forecast/textSummary into appropriate emoji?
+    # TODO: convert keywords of forecastGroup/forecast/textSummary into appropriate emoji?
+
 
 # broadcast online status to general channel
 def greetGeneralChannel():
@@ -60,4 +60,8 @@ def greetGeneralChannel():
 
 if __name__ == "__main__":
     # greetGeneralChannel()
-    main()
+
+    try:
+        main()
+    except KeyboardInterrupt:
+        pass
