@@ -10,7 +10,7 @@ Slack Registration:
  
 Development Setup:
 
-1. Python 3.6.0
+1. Python 3+
 2. pip install -r requirements.txt
 3. python main.py
 4. tests found in [tests](tests)
@@ -22,8 +22,10 @@ Private message commands:
 ![Preview](preview.png)
 
 
+[Presentation](presentation.html)
 
 Credits:
 - https://github.com/lins05/slackbot
+- https://github.com/os/slacker
 - https://github.com/gpailler/AtlassianBot
 - https://github.com/igable/data-gc-ca-api

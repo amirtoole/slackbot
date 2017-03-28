@@ -23,7 +23,10 @@ def main():
     logging.getLogger('requests.packages.urllib3.connectionpool') \
         .setLevel(logging.WARNING)
     bot = Bot()
-    bot.run()
+    try:
+        bot.run()
+    except KeyboardInterrupt:
+        pass
 
 
 @respond_to('hi', re.IGNORECASE)
@@ -60,8 +63,4 @@ def greetGeneralChannel():
 
 if __name__ == "__main__":
     # greetGeneralChannel()
-
-    try:
-        main()
-    except KeyboardInterrupt:
-        pass
+    main()
