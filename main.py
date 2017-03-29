@@ -2,6 +2,7 @@ import logging
 import re
 import sys
 
+from chatterbot import ChatBot
 from slackbot.bot import Bot, respond_to
 from slackbot.slackclient import SlackClient
 
@@ -10,6 +11,16 @@ from utils.weather import CityIndex, City
 
 WEATHER = 'weather'
 CITYINDEX = CityIndex()
+
+chatbot = ChatBot(
+    "Math & Time Bot",
+    logic_adapters=[
+        "chatterbot.logic.MathematicalEvaluation",
+        "chatterbot.logic.TimeLogicAdapter"
+    ],
+    input_adapter="chatterbot.input.VariableInputTypeAdapter",
+    output_adapter="chatterbot.output.OutputAdapter"
+)
 
 
 def main():
@@ -22,6 +33,7 @@ def main():
     logging.basicConfig(**kw)
     logging.getLogger('requests.packages.urllib3.connectionpool') \
         .setLevel(logging.WARNING)
+
     bot = Bot()
     try:
         bot.run()
@@ -29,11 +41,13 @@ def main():
         pass
 
 
-@respond_to('hi', re.IGNORECASE)
+@respond_to('What ', re.IGNORECASE)
 def hi(message):
-    message.reply('Hi!')
+    # message.reply('Hi!')
     # react with thumb up emoji
-    message.react('+1')
+
+    response = chatbot.get_response("What " + message.body['text'][len("What "):].strip())
+    message.reply(response.text)
 
 
 @respond_to(WEATHER, re.IGNORECASE)
@@ -46,6 +60,7 @@ def weather(message):
         return
 
     city = City(CITYINDEX.data_url(cityStr))
+
     message.reply('Weather in %s, %s\nCurrent: %s °C\nForecast: %s' % (cityStr,
                                                                        CITYINDEX.province(cityStr),
                                                                        city.get_quantity('currentConditions/temperature'),

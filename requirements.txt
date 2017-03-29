@@ -1,1 +1,2 @@
 slackbot==0.4.1
+chatterbot==0.6.0
